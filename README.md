@@ -6,8 +6,8 @@ All student, class, assignment, and portfolio information is fictional. This is 
 
 ## Live demonstrations
 
-- [Open the School portal](https://rgcdata.github.io/filemaker-school-demo/)
-- [Open the interactive hybrid-vs-Sol metrics report](https://rgcdata.github.io/filemaker-school-demo/metrics/sidebar-experiment-report.html)
+- [Open the School portal](https://alexrgcdata.github.io/howToSaveTokensDemo/)
+- [Open the interactive hybrid-vs-Sol metrics report](https://alexrgcdata.github.io/howToSaveTokensDemo/metrics/sidebar-experiment-report.html)
 
 ## Product features
 
