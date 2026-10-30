@@ -1,107 +1,62 @@
-# School — Hybrid LLM Art-College Portal
+# Spend fewer tokens on useful work
 
-School is a polished fictional art-college portal built as an experiment in hybrid AI software development. A GPT-5.6 Sol-based orchestrator owns architecture, integration, validation, and publishing while bounded implementation and review tasks are delegated to DeepInfra-hosted models.
+Practical agent instructions by [Alex Seidler](https://alexseidler.dev), accompanying
+my [token-management article](https://rgcdata.com/2026/10/21/ai-token-management-context-coding-costs/).
 
-All student, class, assignment, and portfolio information is fictional. This is a visual demonstration—not a production student-information system.
+I wanted a small set of files I could bring into a project: short replies, focused
+investigation, sensible checks, and a handoff that saves the next session from
+starting over. This toolkit is that starting point, not a promise of cheaper bills.
 
-## Live demonstrations
+## Start here
 
-- [Open the School portal](https://alexrgcdata.github.io/howToSaveTokensDemo/)
-- [Open the interactive hybrid-vs-Sol metrics report](https://alexrgcdata.github.io/howToSaveTokensDemo/metrics/sidebar-experiment-report.html)
+1. Merge the useful parts of [the starter rules](toolkit/AGENTS.example.md) into your
+   existing project instructions. Preserve its build commands and permission rules.
+2. Fill in [a task brief](toolkit/templates/task-brief.md) with a starting point,
+   a reproducible example, and the expected result.
+3. Ask your agent to read one relevant skill:
+   - [Focused work](toolkit/skills/focused-work/SKILL.md)
+   - [Session handoff](toolkit/skills/session-handoff/SKILL.md)
+   - [Usage review](toolkit/skills/usage-review/SKILL.md)
 
-## Product features
+No keys or installation needed. Copy only the files you need. Automatic skill
+discovery depends on your agent's supported locations and configuration; explicitly
+asking an agent to read a skill file works without assuming automatic discovery.
 
-- Student dashboard with current-term activity and announcements
-- Clickable classes and detailed class views
-- Weekly schedule and assignments
-- Portfolio gallery
-- Administrative dashboard
-- Student and class management
-- ReUI-style visual critique Kanban board
-- Responsive mobile and desktop layouts
-- Reusable, data-driven SaaS sidebar with nested navigation
-- Collapsible desktop icon rail, tooltips, active routes, badges, and mobile Sheet
+Download the repository with **Code → Download ZIP**, or:
 
-## Technology
+```sh
+git clone https://github.com/alexrgcdata/howToSaveTokensDemo.git
+```
 
-- React 19 and TypeScript
-- Vite 8
-- Tailwind CSS 4
-- shadcn/ui-style components backed by Base UI
-- ReUI-inspired Kanban components
-- Lucide icons
-- GitHub Pages deployment through GitHub Actions
+## Useful files
 
-## Reusable navigation
-
-The new sidebar is configured through a typed object in [`src/components/navigation/navigation.config.ts`](src/components/navigation/navigation.config.ts). Sections can contain links or nested groups, with optional icons, badges, descriptions, and default-open states.
-
-The component implementation and usage notes are available in:
-
-- [`src/components/navigation/app-sidebar.tsx`](src/components/navigation/app-sidebar.tsx)
-- [`src/components/navigation/README.md`](src/components/navigation/README.md)
-
-## Hybrid model experiment
-
-The reusable-sidebar experiment called four DeepInfra models in bounded roles:
-
-| Role | Model |
+| File | Purpose |
 | --- | --- |
-| Architecture | `zai-org/GLM-5.2` |
-| React implementation attempt | `moonshotai/Kimi-K2.7-Code` |
-| Test and metrics review | `deepseek-ai/DeepSeek-V4-Flash` |
-| Escalation review | `deepseek-ai/DeepSeek-V4-Pro` |
+| [Starter rules](toolkit/AGENTS.example.md) | Concise replies and focused investigation |
+| [Task brief](toolkit/templates/task-brief.md) | Give the agent somewhere useful to start |
+| [Handoff](toolkit/templates/handoff.md) | Continue without replaying a whole conversation |
+| [Usage log](toolkit/templates/usage-log.md) | Compare cost, retries, quality, and time |
+| [FileMaker example](toolkit/examples/filemaker-task.md) | Preserve script/layout context without a full export |
+| [Everyday habits](docs/token-habits.md) | Context, caching, tools, delegation, and common mistakes |
+| [Review scenarios](docs/review-scenarios.md) | Check usefulness as well as brevity |
 
-### Measured DeepInfra results
+Short output does not prove low total usage. Never save tokens by skipping required
+checks, concealing uncertainty, or removing the context needed for a correct result.
+Measure completed work, including repairs. There is no universal savings percentage.
 
-- 20,463 total tokens
-- 5,343 prompt tokens
-- 15,120 completion tokens
-- $0.048014 measured provider cost
-- 16,788 tokens belonged to calls that returned no visible deliverable
-- GLM's successful retry and DeepSeek V4 Flash supplied the useful delegated material
+## Original demonstration
 
-Failed calls remain in the totals. They are not removed to make the experiment look more efficient.
+The School React app and hybrid-model experiment remain intact. Their
+[original walkthrough](docs/school-experiment.md) preserves setup instructions and
+results. The report distinguishes recorded DeepInfra usage from estimated comparison
+scenarios; it does not measure this new toolkit.
 
-### Estimated GPT-5.6 Sol comparison
+- [School demo](https://alexrgcdata.github.io/howToSaveTokensDemo/)
+- [Experiment report](https://alexrgcdata.github.io/howToSaveTokensDemo/metrics/sidebar-experiment-report.html)
 
-The interactive report compares this hybrid workflow with:
+Check the Markdown package with `node scripts/check-toolkit.mjs`. This checks links
+and skill metadata, not model behavior. Build the existing app with `npm ci` followed
+by `npm run check`. No paid experiment is needed to use or validate the toolkit.
 
-1. One GPT-5.6 Sol task handling the complete feature
-2. A GPT-5.6 Sol lead spawning Sol/GPT-5.5-class Codex agents
-
-Under the report's editable default assumptions, hybrid orchestration is estimated to preserve:
-
-- **35.5% of Codex credits** versus one Sol-only task
-- **66.0% of Codex credits** versus Sol with Codex subagents
-- **27.7% in API-equivalent cost** versus one Sol-only task
-- **61.9% in API-equivalent cost** versus Sol with Codex subagents
-
-The DeepInfra usage is measured. The Sol token counts are disclosed counterfactual estimates because Codex does not expose an exact task-level token ledger for this experiment. The report lets visitors change all primary-model token assumptions and immediately recalculates the comparison.
-
-## Run locally
-
-```powershell
-npm install
-npm run dev
-```
-
-Open the local URL shown by Vite, normally `http://localhost:5173`.
-
-## Validate and build
-
-```powershell
-npm run check
-npm run build
-```
-
-The production files are generated in `dist`.
-
-## Metrics tooling
-
-```powershell
-npm run experiment:sidebar
-npm run report:sidebar
-```
-
-`experiment:sidebar` requires `DEEPINFRA_TOKEN` in the local environment. The token is never written to the report, source code, browser bundle, or Git history. Raw experiment responses are excluded from Git.
+New files under `toolkit/` are [MIT licensed](toolkit/LICENSE). This addition does
+not relicense the existing application, experiment, or dependencies.
