@@ -51,8 +51,12 @@ The School React app and hybrid-model experiment remain intact. Their
 results. The report distinguishes recorded DeepInfra usage from estimated comparison
 scenarios; it does not measure this new toolkit.
 
-- [School demo](https://alexrgcdata.github.io/howToSaveTokensDemo/)
-- [Experiment report](https://alexrgcdata.github.io/howToSaveTokensDemo/metrics/sidebar-experiment-report.html)
+- [Configured demo URL](https://alexrgcdata.github.io/howToSaveTokensDemo/)
+- [Configured report URL](https://alexrgcdata.github.io/howToSaveTokensDemo/metrics/sidebar-experiment-report.html)
+
+Hosting status: the current Pages workflow builds the app successfully, but GitHub
+reports that the Pages site is not configured. These are the intended hosting URLs,
+not verified live demos. The source, local report, and Markdown toolkit remain usable.
 
 Check the Markdown package with `node scripts/check-toolkit.mjs`. This checks links
 and skill metadata, not model behavior. Build the existing app with `npm ci` followed
